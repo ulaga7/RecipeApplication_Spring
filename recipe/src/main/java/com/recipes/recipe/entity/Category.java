@@ -12,7 +12,9 @@ public class Category {
     private int categoryid;
     @Column(name = "category_name")
     private String name;
-
+   @ManyToMany
+   @JoinTable(name = "recipe_categories",joinColumns = @JoinColumn(name="category_id"),inverseJoinColumns = @JoinColumn(name = "recipe_id"))
+   private Set<RecipeForCategory> recipes;
     public Category(int categoryid, String name) {
         this.categoryid = categoryid;
         this.name = name;
@@ -20,6 +22,22 @@ public class Category {
 
     public Category(){
 
+    }
+
+    public int getCategoryid() {
+        return categoryid;
+    }
+
+    public void setCategoryid(int categoryid) {
+        this.categoryid = categoryid;
+    }
+
+   public Set<RecipeForCategory> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(Set<RecipeForCategory> recipes) {
+        this.recipes = recipes;
     }
 
     public int getCategory_id() {

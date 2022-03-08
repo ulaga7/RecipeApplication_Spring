@@ -6,7 +6,7 @@ import java.util.Set;
 @Entity
 
 @Table(name="recipes")
-public class Recipe implements java.io.Serializable{
+public class RecipeForCategory implements java.io.Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,19 +19,10 @@ public class Recipe implements java.io.Serializable{
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
     private Set<Ingredient> ingredient ;
-    @ManyToMany
-    @JoinTable(name = "recipe_categories",joinColumns = @JoinColumn(name="recipe_id"),inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> recipecategories;
     @Column(name="steps")
     private String steps;
 
-    public Set<Category> getRecipe_categories() {
-        return recipecategories;
-    }
 
-    public void setRecipe_categories(Set<Category> recipecategories) {
-        this.recipecategories = recipecategories;
-    }
 
     @Override
     public String toString() {
@@ -79,7 +70,7 @@ public class Recipe implements java.io.Serializable{
         return this.ingredient;
     }
 
-   public void setIngredient(Set<Ingredient> ingredient) {
+    public void setIngredient(Set<Ingredient> ingredient) {
         this.ingredient = ingredient;
     }
 }
