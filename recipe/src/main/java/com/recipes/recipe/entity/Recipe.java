@@ -1,6 +1,7 @@
 package com.recipes.recipe.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,10 +17,10 @@ public class Recipe implements java.io.Serializable{
     private String title;
     @Column(name="yield")
     private int yield;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "recipe_id")
-    private Set<Ingredient> ingredient ;
-    @ManyToMany
+    private Set<Ingredient> ingredient =new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinTable(name = "recipe_categories",joinColumns = @JoinColumn(name="recipe_id"),inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> recipecategories;
     @Column(name="steps")

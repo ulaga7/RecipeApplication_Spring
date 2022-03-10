@@ -1,8 +1,10 @@
 package com.recipes.recipe.controller;
 
 import com.recipes.recipe.entity.Category;
+import com.recipes.recipe.entity.Recipe;
 import com.recipes.recipe.exceptions.RecipesNotFoundException;
 import com.recipes.recipe.repository.CategoryRepository;
+import com.recipes.recipe.repository.RecipeRepository;
 import com.recipes.recipe.service.RecipeService;
 import com.recipes.recipe.service.impl.CategoryView;
 import com.recipes.recipe.service.impl.HeadView;
@@ -22,6 +24,8 @@ public class RecipeController {
     private RecipeService recipe_service;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private RecipeRepository recipeRepository;
 
     @GetMapping("/all")
     public ResponseEntity<List<RecipeView>> getAllRecipes(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "limit", defaultValue = "1") int limit) throws RecipesNotFoundException {
@@ -40,7 +44,11 @@ public class RecipeController {
         return new ResponseEntity<List<RecipeView>>(recipesList, HttpStatus.OK);
 
     }
+@PostMapping("/post")
+public  void  Postrecipe(@RequestBody Recipe recipe){
+        recipeRepository.save(recipe);
 
+}
     @GetMapping("/filters/categories")
     public ResponseEntity<List<CategoryView>> getAllCategories(){
         List<CategoryView> categoryList = new ArrayList<>();

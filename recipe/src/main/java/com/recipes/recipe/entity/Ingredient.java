@@ -19,7 +19,6 @@ public class Ingredient implements java.io.Serializable {
 
     @Column(name="unit")
     private String unit;
-
     @Override
     public String toString() {
         return "Ingredient{" +
@@ -61,6 +60,7 @@ public class Ingredient implements java.io.Serializable {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
 
 
 }
