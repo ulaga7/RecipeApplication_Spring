@@ -12,8 +12,10 @@ import com.recipes.recipe.service.impl.RecipeView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +47,11 @@ public class RecipeController {
 
     }
 @PostMapping("/post")
-public  void  Postrecipe(@RequestBody Recipe recipe){
-        recipeRepository.save(recipe);
+public  ResponseEntity<Recipe> saverecipe(@Valid @RequestBody Recipe recipe){
+    Recipe saved= recipeRepository.save(recipe);
+
+    return new ResponseEntity<Recipe>(saved,HttpStatus.OK);
+
 
 }
     @GetMapping("/filters/categories")

@@ -1,6 +1,8 @@
 package com.recipes.recipe.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -10,6 +12,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="category_id")
     private int categoryid;
+    @NotNull(message = "The category name should not be null")
+    @Size( max = 256, message = "The length of title should not be more than 256 ")
     @Column(name = "category_name")
     private String name;
    @ManyToMany
