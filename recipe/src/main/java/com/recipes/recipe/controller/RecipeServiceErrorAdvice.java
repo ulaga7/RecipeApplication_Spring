@@ -1,6 +1,6 @@
 package com.recipes.recipe.controller;
 
-import com.recipes.recipe.exceptions.RecipesNotFoundException;
+import com.recipes.recipe.exceptions.RecipesDuplicatesException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class RecipeServiceErrorAdvice extends ResponseEntityExceptionHandler
 {
-   /* @ExceptionHandler({RecipesNotFoundException.class})
-    public ResponseEntity<String> handleRunTimeException(RecipesNotFoundException e) {
-        return error(HttpStatus.NO_CONTENT, e.getMessage());
-    }*/
+   @ExceptionHandler({RecipesDuplicatesException.class})
+    public ResponseEntity<String> handleRunTimeException(RecipesDuplicatesException e) {
+        return error(HttpStatus.CONFLICT, e.getMessage());
+    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -42,7 +42,7 @@ public class RecipeServiceErrorAdvice extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
-   /* private ResponseEntity<String> error(HttpStatus status, String e) {
+   private ResponseEntity<String> error(HttpStatus status, String e) {
         return ResponseEntity.status(status).body(e);
-    }*/
+    }
 }
